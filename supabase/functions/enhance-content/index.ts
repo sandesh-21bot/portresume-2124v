@@ -114,7 +114,7 @@ serve(async (req) => {
         body: JSON.stringify({
           model: 'google/gemini-2.5-flash',
           messages: [
-            { role: 'system', content: `You are a professional portfolio content writer${titleContext}. Enhance the provided content to be more professional, engaging, and impactful while maintaining authenticity. Keep responses concise.` },
+            { role: 'system', content: `You are a professional resume content writer${titleContext}. Enhance the provided content to be more professional, engaging, and impactful while maintaining authenticity. Keep responses concise.` },
             { role: 'user', content: bioPrompt }
           ],
         }),
@@ -155,7 +155,7 @@ serve(async (req) => {
         body: JSON.stringify({
           model: 'google/gemini-2.5-flash',
           messages: [
-            { role: 'system', content: 'You are a professional portfolio content writer. Enhance project descriptions to highlight technical skills, impact, and achievements. Be concise and professional.' },
+            { role: 'system', content: 'You are a professional resume content writer. Enhance project descriptions to highlight technical skills, impact, and achievements. Be concise and professional.' },
             { role: 'user', content: projectsPrompt }
           ],
         }),

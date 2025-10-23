@@ -14,7 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_enhancement_logs: {
+        Row: {
+          created_at: string
+          enhanced_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          enhanced_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          enhanced_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      resumes: {
+        Row: {
+          achievements: Json | null
+          address: string | null
+          bio: string | null
+          career_objective: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          education: Json | null
+          full_name: string
+          id: string
+          linkedin_url: string | null
+          profile_photo_url: string | null
+          projects: Json | null
+          skills: string[] | null
+          title: string | null
+          updated_at: string | null
+          user_id: string
+          visibility_settings: Json | null
+        }
+        Insert: {
+          achievements?: Json | null
+          address?: string | null
+          bio?: string | null
+          career_objective?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          education?: Json | null
+          full_name: string
+          id?: string
+          linkedin_url?: string | null
+          profile_photo_url?: string | null
+          projects?: Json | null
+          skills?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id: string
+          visibility_settings?: Json | null
+        }
+        Update: {
+          achievements?: Json | null
+          address?: string | null
+          bio?: string | null
+          career_objective?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          education?: Json | null
+          full_name?: string
+          id?: string
+          linkedin_url?: string | null
+          profile_photo_url?: string | null
+          projects?: Json | null
+          skills?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string
+          visibility_settings?: Json | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
