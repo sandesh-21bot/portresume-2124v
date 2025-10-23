@@ -4,24 +4,24 @@ const CompactLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => {
   const skillsArray = data.skills.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
-    <div className="bg-card rounded-lg border shadow-soft p-6 space-y-4">
-      <div className="flex items-center gap-4">
+    <div className="bg-card rounded-lg border shadow-soft p-4 space-y-2.5 max-w-4xl mx-auto">
+      <div className="flex items-center gap-3">
         {photoUrl ? (
           <img 
             src={photoUrl} 
             alt={data.fullName} 
-            className="w-20 h-20 rounded object-cover border-2 border-primary/20"
+            className="w-14 h-14 rounded object-cover border border-primary/20"
           />
         ) : (
-          <div className="w-20 h-20 rounded bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl font-bold text-primary-foreground border-2 border-primary/20">
+          <div className="w-14 h-14 rounded bg-gradient-to-br from-primary to-accent flex items-center justify-center text-lg font-bold text-primary-foreground border border-primary/20">
             {data.fullName.charAt(0) || "?"}
           </div>
         )}
         
         <div className="flex-1">
-          <h2 className="text-2xl font-bold">{data.fullName || "Your Name"}</h2>
-          <p className="text-sm text-muted-foreground">{data.title || "Your Title"}</p>
-          <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
+          <h2 className="text-xl font-bold">{data.fullName || "Your Name"}</h2>
+          <p className="text-xs text-muted-foreground">{data.title || "Your Title"}</p>
+          <div className="flex gap-2 mt-1 text-[10px] text-muted-foreground">
             {data.contactEmail && <span>{data.contactEmail}</span>}
             {data.contactPhone && <span>{data.contactPhone}</span>}
           </div>
@@ -29,17 +29,17 @@ const CompactLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => {
       </div>
 
       {data.bio && (
-        <p className="text-sm text-muted-foreground leading-relaxed">{data.bio}</p>
+        <p className="text-xs text-muted-foreground leading-snug">{data.bio}</p>
       )}
 
       {skillsArray.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-primary mb-2">SKILLS</p>
-          <div className="flex flex-wrap gap-1.5">
+          <p className="text-[10px] font-semibold text-primary mb-1">SKILLS</p>
+          <div className="flex flex-wrap gap-1">
             {skillsArray.map((skill, idx) => (
               <span
                 key={idx}
-                className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs"
+                className="px-1.5 py-0.5 bg-primary/10 text-primary rounded text-[10px]"
               >
                 {skill}
               </span>
@@ -50,22 +50,22 @@ const CompactLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => {
 
       {data.education && (
         <div>
-          <p className="text-xs font-semibold text-primary mb-2">EDUCATION</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">{data.education}</p>
+          <p className="text-[10px] font-semibold text-primary mb-1">EDUCATION</p>
+          <p className="text-xs text-muted-foreground leading-snug">{data.education}</p>
         </div>
       )}
 
       {data.projects && (
         <div>
-          <p className="text-xs font-semibold text-primary mb-2">PROJECTS</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">{data.projects}</p>
+          <p className="text-[10px] font-semibold text-primary mb-1">PROJECTS</p>
+          <p className="text-xs text-muted-foreground leading-snug">{data.projects}</p>
         </div>
       )}
 
       {data.achievements && (
         <div>
-          <p className="text-xs font-semibold text-primary mb-2">ACHIEVEMENTS</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">{data.achievements}</p>
+          <p className="text-[10px] font-semibold text-primary mb-1">ACHIEVEMENTS</p>
+          <p className="text-xs text-muted-foreground leading-snug">{data.achievements}</p>
         </div>
       )}
     </div>
