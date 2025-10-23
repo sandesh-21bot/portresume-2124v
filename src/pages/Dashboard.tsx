@@ -9,11 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { toast } from "sonner";
 import { Sparkles, LogOut, Upload, FileDown } from "lucide-react";
 import { User, Session } from "@supabase/supabase-js";
-import PortfolioPreview from "@/components/PortfolioPreview";
+import ResumePreview from "@/components/ResumePreview";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { layoutOptions, LayoutType } from "@/components/portfolio-layouts";
+import { layoutOptions, LayoutType } from "@/components/resume-layouts";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const Dashboard = () => {
@@ -86,34 +86,34 @@ const Dashboard = () => {
   }, [navigate]);
 
   const loadUserData = async (userId: string) => {
-    const { data: portfolio } = await supabase
-      .from("portfolios")
+    const { data: resume } = await supabase
+      .from("resumes")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .limit(1)
       .single();
 
-    if (portfolio) {
+    if (resume) {
       setFormData({
-        fullName: portfolio.full_name || "",
-        title: portfolio.title || "",
-        bio: portfolio.bio || "",
-        skills: Array.isArray(portfolio.skills) ? portfolio.skills.join(", ") : "",
-        education: typeof portfolio.education === 'string' ? portfolio.education : "",
-        projects: typeof portfolio.projects === 'string' ? portfolio.projects : "",
-        contactEmail: portfolio.contact_email || "",
-        contactPhone: portfolio.contact_phone || "",
-        dateOfBirth: portfolio.date_of_birth || "",
-        linkedinUrl: portfolio.linkedin_url || "",
-        address: portfolio.address || "",
-        careerObjective: portfolio.career_objective || "",
-        achievements: typeof portfolio.achievements === 'string' ? portfolio.achievements : "",
+        fullName: resume.full_name || "",
+        title: resume.title || "",
+        bio: resume.bio || "",
+        skills: Array.isArray(resume.skills) ? resume.skills.join(", ") : "",
+        education: typeof resume.education === 'string' ? resume.education : "",
+        projects: typeof resume.projects === 'string' ? resume.projects : "",
+        contactEmail: resume.contact_email || "",
+        contactPhone: resume.contact_phone || "",
+        dateOfBirth: resume.date_of_birth || "",
+        linkedinUrl: resume.linkedin_url || "",
+        address: resume.address || "",
+        careerObjective: resume.career_objective || "",
+        achievements: typeof resume.achievements === 'string' ? resume.achievements : "",
       });
-      setPhotoUrl(portfolio.profile_photo_url || "");
+      setPhotoUrl(resume.profile_photo_url || "");
       
-      if (portfolio.visibility_settings) {
-        setVisibilitySettings(portfolio.visibility_settings as any);
+      if (resume.visibility_settings) {
+        setVisibilitySettings(resume.visibility_settings as any);
       }
     }
   };
@@ -188,12 +188,12 @@ const Dashboard = () => {
     }
   };
 
-  const handleSavePortfolio = async () => {
+  const handleSaveResume = async () => {
     if (!user) return;
 
     setIsLoading(true);
     try {
-      const portfolioData = {
+      const resumeData = {
         user_id: user.id,
         full_name: formData.fullName,
         title: formData.title,
@@ -213,14 +213,14 @@ const Dashboard = () => {
       };
 
       const { error } = await supabase
-        .from('portfolios')
-        .upsert(portfolioData);
+        .from('resumes')
+        .upsert(resumeData);
 
       if (error) throw error;
 
-      toast.success("Portfolio saved successfully!");
+      toast.success("Resume saved successfully!");
     } catch (error: any) {
-      toast.error(error.message || "Failed to save portfolio");
+      toast.error(error.message || "Failed to save resume");
     } finally {
       setIsLoading(false);
     }
@@ -269,7 +269,7 @@ const Dashboard = () => {
         heightLeft -= pageHeight;
       }
 
-      const fileName = `${formData.fullName.replace(/\s+/g, '_') || 'Portfolio'}_Resume.pdf`;
+      const fileName = `${formData.fullName.replace(/\s+/g, '_') || 'Resume'}_Resume.pdf`;
       pdf.save(fileName);
 
       toast.success("PDF downloaded successfully!");
@@ -288,7 +288,7 @@ const Dashboard = () => {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Portfolio Builder
+            Resume Builder
           </h1>
           <Button variant="outline" onClick={handleSignOut}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -303,7 +303,7 @@ const Dashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Your Information</CardTitle>
-                <CardDescription>Fill in your details to create your portfolio</CardDescription>
+                <CardDescription>Fill in your details to create your resume</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -597,12 +597,12 @@ const Dashboard = () => {
                     Enhance with AI
                   </Button>
                   <Button
-                    onClick={handleSavePortfolio}
+                    onClick={handleSaveResume}
                     disabled={isLoading}
                     className="flex-1 bg-gradient-to-r from-primary to-primary-glow"
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    Save Portfolio
+                    Save Resume
                   </Button>
                 </div>
               </CardContent>
@@ -613,7 +613,7 @@ const Dashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Live Preview</CardTitle>
-                <CardDescription>Choose a layout and preview your portfolio</CardDescription>
+                <CardDescription>Choose a layout and preview your resume</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -635,7 +635,7 @@ const Dashboard = () => {
                 </div>
 
                 <div id="pdf-preview" ref={previewRef}>
-                  <PortfolioPreview 
+                  <ResumePreview 
                     data={formData} 
                     photoUrl={photoUrl} 
                     layout={selectedLayout}

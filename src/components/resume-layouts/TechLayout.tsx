@@ -10,7 +10,7 @@ const TechLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => {
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          <span className="ml-4 text-sm text-muted-foreground">portfolio.tsx</span>
+          <span className="ml-4 text-sm text-muted-foreground">resume.tsx</span>
         </div>
       </div>
 

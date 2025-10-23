@@ -10,18 +10,18 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto text-center space-y-8 animate-fade-in">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
           <Sparkles className="w-4 h-4" />
-          <span>AI-Powered Portfolio Builder</span>
+          <span>AI-Powered Resume Builder</span>
         </div>
         
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
           Build Your Dream
           <span className="block bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
-            Portfolio in Minutes
+            Resume in Minutes
           </span>
         </h1>
         
         <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Create stunning portfolios with AI-powered content generation. 
+          Create stunning resumes with AI-powered content generation. 
           Export to PDF instantly. No design skills required.
         </p>
         
@@ -54,13 +54,13 @@ const Hero = () => {
             },
             {
               icon: Zap,
-              title: "Instant Portfolio",
-              description: "Generate a beautiful portfolio website in seconds with your information"
+              title: "Instant Resume",
+              description: "Generate a beautiful resume in seconds with your information"
             },
             {
               icon: Download,
               title: "PDF Export",
-              description: "Download your portfolio as a professionally formatted PDF resume"
+              description: "Download your resume as a professionally formatted PDF"
             }
           ].map((feature, idx) => (
             <div 

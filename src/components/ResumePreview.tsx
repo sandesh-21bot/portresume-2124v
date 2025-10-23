@@ -11,9 +11,9 @@ import {
   TimelineLayout,
   GridLayout,
   LayoutType,
-} from './portfolio-layouts';
+} from './resume-layouts';
 
-interface PortfolioPreviewProps {
+interface ResumePreviewProps {
   data: {
     fullName: string;
     title: string;
@@ -49,7 +49,7 @@ interface PortfolioPreviewProps {
   };
 }
 
-const PortfolioPreview = ({ data, photoUrl, layout = 'classic', visibilitySettings }: PortfolioPreviewProps) => {
+const ResumePreview = ({ data, photoUrl, layout = 'classic', visibilitySettings }: ResumePreviewProps) => {
   const layouts = {
     classic: ClassicLayout,
     modern: ModernLayout,
@@ -69,4 +69,4 @@ const PortfolioPreview = ({ data, photoUrl, layout = 'classic', visibilitySettin
   return <SelectedLayout data={data} photoUrl={photoUrl} visibilitySettings={visibilitySettings} />;
 };
 
-export default PortfolioPreview;
+export default ResumePreview;
