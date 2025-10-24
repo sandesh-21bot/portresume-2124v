@@ -4,94 +4,86 @@ const TimelineLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => 
   const skillsArray = data.skills.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
-    <div className="bg-card rounded-lg border shadow-soft p-5 max-w-4xl mx-auto">
-      <div className="relative pl-6 border-l-2 border-primary space-y-3">
-        <div className="relative">
-          <div className="absolute -left-[26px] w-4 h-4 bg-primary rounded-full border-2 border-card"></div>
-          <div className="flex items-start gap-3">
-            {photoUrl && (
-              <img 
-                src={photoUrl} 
-                alt={data.fullName} 
-                className="w-16 h-16 rounded-lg object-cover border border-primary/20"
-              />
-            )}
-            <div>
-              <h2 className="text-2xl font-bold">{data.fullName || "Your Name"}</h2>
-              <p className="text-sm text-primary mt-0.5">{data.title || "Your Title"}</p>
-            </div>
-          </div>
-        </div>
-
-        {data.bio && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-accent rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Profile</h3>
-              <p className="text-xs text-muted-foreground leading-snug">{data.bio}</p>
-            </div>
+    <div className="bg-white w-[595px] h-[842px] mx-auto p-8 overflow-hidden flex flex-col" style={{ boxSizing: 'border-box' }}>
+      <div className="text-center pb-3 border-b border-gray-300 flex-shrink-0">
+        {photoUrl && visibilitySettings?.profilePhoto !== false ? (
+          <img 
+            src={photoUrl} 
+            alt={data.fullName} 
+            className="w-16 h-16 rounded-full object-cover mx-auto mb-2 border-2 border-blue-600"
+            crossOrigin="anonymous"
+          />
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-lg font-bold text-white mx-auto mb-2 border-2 border-blue-600">
+            {data.fullName.charAt(0) || "?"}
           </div>
         )}
+        
+        {visibilitySettings?.fullName !== false && (
+          <h2 className="text-xl font-bold text-gray-900">{data.fullName || "Your Name"}</h2>
+        )}
+        {visibilitySettings?.title !== false && (
+          <p className="text-xs text-gray-600 mt-0.5">{data.title || "Your Title"}</p>
+        )}
+      </div>
 
-        {skillsArray.length > 0 && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-primary rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Skills</h3>
-              <div className="grid grid-cols-2 gap-1.5">
+      <div className="relative flex-1 mt-3 overflow-hidden">
+        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+        
+        <div className="space-y-2.5 pl-12">
+          {data.bio && visibilitySettings?.bio !== false && (
+            <div className="relative">
+              <div className="absolute -left-12 top-0.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white"></div>
+              <h3 className="text-xs font-bold text-blue-600 mb-1">About</h3>
+              <p className="text-[10px] text-gray-700 leading-tight">{data.bio}</p>
+            </div>
+          )}
+
+          {skillsArray.length > 0 && visibilitySettings?.skills !== false && (
+            <div className="relative">
+              <div className="absolute -left-12 top-0.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white"></div>
+              <h3 className="text-xs font-bold text-blue-600 mb-1.5">Skills</h3>
+              <div className="flex flex-wrap gap-1">
                 {skillsArray.map((skill, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5">
-                    <div className="w-1 h-1 bg-primary rounded-full"></div>
-                    <span className="text-xs">{skill}</span>
-                  </div>
+                  <span key={idx} className="px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded text-[9px] border border-blue-200">
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {data.education && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-accent rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Education</h3>
-              <p className="text-xs text-muted-foreground leading-snug">{data.education}</p>
+          {data.education && visibilitySettings?.education !== false && (
+            <div className="relative">
+              <div className="absolute -left-12 top-0.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white"></div>
+              <h3 className="text-xs font-bold text-blue-600 mb-1">Education</h3>
+              <p className="text-[10px] text-gray-700 leading-tight">{data.education}</p>
             </div>
-          </div>
-        )}
+          )}
 
-        {data.projects && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-primary rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Projects</h3>
-              <p className="text-xs text-muted-foreground leading-snug">{data.projects}</p>
+          {data.projects && visibilitySettings?.projects !== false && (
+            <div className="relative">
+              <div className="absolute -left-12 top-0.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white"></div>
+              <h3 className="text-xs font-bold text-blue-600 mb-1">Projects</h3>
+              <p className="text-[10px] text-gray-700 leading-tight">{data.projects}</p>
             </div>
-          </div>
-        )}
+          )}
 
-        {data.achievements && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-accent rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Achievements</h3>
-              <p className="text-xs text-muted-foreground leading-snug">{data.achievements}</p>
+          {data.achievements && visibilitySettings?.achievements !== false && (
+            <div className="relative">
+              <div className="absolute -left-12 top-0.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white"></div>
+              <h3 className="text-xs font-bold text-blue-600 mb-1">Achievements</h3>
+              <p className="text-[10px] text-gray-700 leading-tight">{data.achievements}</p>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+      </div>
 
-        {(data.contactEmail || data.contactPhone) && (
-          <div className="relative">
-            <div className="absolute -left-[26px] w-4 h-4 bg-accent rounded-full border-2 border-card"></div>
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Contact</h3>
-              <div className="space-y-0.5 text-xs text-muted-foreground">
-                {data.contactEmail && <p>{data.contactEmail}</p>}
-                {data.contactPhone && <p>{data.contactPhone}</p>}
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="pt-2 border-t border-gray-300 mt-auto flex-shrink-0">
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-[9px] text-gray-600">
+          {data.contactEmail && visibilitySettings?.contactEmail !== false && <span>{data.contactEmail}</span>}
+          {data.contactPhone && visibilitySettings?.contactPhone !== false && <span>{data.contactPhone}</span>}
+        </div>
       </div>
     </div>
   );

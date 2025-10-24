@@ -4,83 +4,72 @@ const TechLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => {
   const skillsArray = data.skills.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
-    <div className="bg-card rounded-lg border border-primary/20 shadow-soft font-mono max-w-4xl mx-auto">
-      <div className="bg-primary/5 p-2 border-b border-primary/20">
-        <div className="flex items-center gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-red-500"></div>
-          <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-          <div className="w-2 h-2 rounded-full bg-green-500"></div>
-          <span className="ml-2 text-xs text-muted-foreground">resume.tsx</span>
+    <div className="bg-gray-900 w-[595px] h-[842px] mx-auto overflow-hidden flex flex-col" style={{ boxSizing: 'border-box' }}>
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-6 flex-shrink-0">
+        <div className="flex items-center gap-3">
+          {photoUrl && (
+            <img 
+              src={photoUrl} 
+              alt={data.fullName} 
+              className="w-16 h-16 rounded object-cover border-2 border-white"
+              crossOrigin="anonymous"
+            />
+          )}
+          
+          <div className="flex-1 text-white min-w-0">
+            <h2 className="text-xl font-mono font-bold truncate">{data.fullName || "Your Name"}</h2>
+            <p className="text-xs font-mono opacity-90 mt-0.5">{data.title || "Your Title"}</p>
+          </div>
         </div>
       </div>
 
-      <div className="p-4 space-y-2">
-        <div className="space-y-1.5">
-          <div className="flex items-start gap-3">
-            {photoUrl && (
-              <img 
-                src={photoUrl} 
-                alt={data.fullName} 
-                className="w-12 h-12 rounded object-cover border border-primary"
-              />
-            )}
-            <div className="flex-1">
-              <p className="text-xs text-muted-foreground">const <span className="text-primary">developer</span> = {'{'}</p>
-              <p className="text-xs ml-3 mt-0.5">name: <span className="text-accent">"{data.fullName || "Your Name"}"</span>,</p>
-              <p className="text-xs ml-3">role: <span className="text-accent">"{data.title || "Your Title"}"</span>,</p>
+      <div className="p-6 space-y-3 flex-1 overflow-hidden">
+        {data.bio && (
+          <div className="border-l-2 border-cyan-500 pl-2">
+            <h3 className="text-xs font-mono font-bold text-cyan-400 mb-1">// ABOUT</h3>
+            <p className="text-[10px] text-gray-300 leading-tight font-mono">{data.bio}</p>
+          </div>
+        )}
+
+        {skillsArray.length > 0 && (
+          <div className="border-l-2 border-cyan-500 pl-2">
+            <h3 className="text-xs font-mono font-bold text-cyan-400 mb-1.5">// SKILLS</h3>
+            <div className="flex flex-wrap gap-1">
+              {skillsArray.map((skill, idx) => (
+                <span key={idx} className="px-2 py-0.5 bg-cyan-900/50 text-cyan-300 rounded text-[9px] font-mono border border-cyan-700">
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
+        )}
 
-          {data.bio && (
-            <div className="ml-3">
-              <p className="text-xs">bio: <span className="text-accent">"{data.bio}"</span>,</p>
-            </div>
-          )}
+        {data.education && (
+          <div className="border-l-2 border-cyan-500 pl-2">
+            <h3 className="text-xs font-mono font-bold text-cyan-400 mb-1">// EDUCATION</h3>
+            <p className="text-[10px] text-gray-300 leading-tight font-mono">{data.education}</p>
+          </div>
+        )}
 
-          {skillsArray.length > 0 && (
-            <div className="ml-3">
-              <p className="text-xs">skills: [</p>
-              {skillsArray.map((skill, idx) => (
-                <p key={idx} className="text-xs ml-3 text-accent">
-                  "{skill}"{idx < skillsArray.length - 1 ? ',' : ''}
-                </p>
-              ))}
-              <p className="text-xs">],</p>
-            </div>
-          )}
+        {data.projects && (
+          <div className="border-l-2 border-cyan-500 pl-2">
+            <h3 className="text-xs font-mono font-bold text-cyan-400 mb-1">// PROJECTS</h3>
+            <p className="text-[10px] text-gray-300 leading-tight font-mono">{data.projects}</p>
+          </div>
+        )}
 
-          {data.education && (
-            <div className="ml-3">
-              <p className="text-xs">education: <span className="text-accent">"{data.education}"</span>,</p>
-            </div>
-          )}
+        {data.achievements && (
+          <div className="border-l-2 border-cyan-500 pl-2">
+            <h3 className="text-xs font-mono font-bold text-cyan-400 mb-1">// ACHIEVEMENTS</h3>
+            <p className="text-[10px] text-gray-300 leading-tight font-mono">{data.achievements}</p>
+          </div>
+        )}
+      </div>
 
-          {data.projects && (
-            <div className="ml-3">
-              <p className="text-xs">projects: <span className="text-accent">"{data.projects}"</span>,</p>
-            </div>
-          )}
-
-          {data.achievements && (
-            <div className="ml-3">
-              <p className="text-xs">achievements: <span className="text-accent">"{data.achievements}"</span>,</p>
-            </div>
-          )}
-
-          {(data.contactEmail || data.contactPhone) && (
-            <div className="ml-3">
-              <p className="text-xs">contact: {'{'}</p>
-              {data.contactEmail && (
-                <p className="text-xs ml-3">email: <span className="text-accent">"{data.contactEmail}"</span>,</p>
-              )}
-              {data.contactPhone && (
-                <p className="text-xs ml-3">phone: <span className="text-accent">"{data.contactPhone}"</span>,</p>
-              )}
-              <p className="text-xs">{'}'}</p>
-            </div>
-          )}
-
-          <p className="text-xs">{'}'}</p>
+      <div className="px-6 py-3 bg-gray-950 border-t border-cyan-900 flex-shrink-0">
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-[9px] text-cyan-400 font-mono">
+          {data.contactEmail && <span>📧 {data.contactEmail}</span>}
+          {data.contactPhone && <span>📱 {data.contactPhone}</span>}
         </div>
       </div>
     </div>

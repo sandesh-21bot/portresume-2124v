@@ -4,84 +4,92 @@ const CreativeLayout = ({ data, photoUrl, visibilitySettings }: LayoutProps) => 
   const skillsArray = data.skills.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
-    <div className="bg-gradient-to-br from-primary via-accent to-primary/80 rounded-2xl p-1 shadow-elegant max-w-4xl mx-auto">
-      <div className="bg-card rounded-[14px] p-5 space-y-3">
-        <div className="flex items-start gap-4">
-          {photoUrl ? (
-            <img 
-              src={photoUrl} 
-              alt={data.fullName} 
-              className="w-16 h-16 rounded-xl object-cover ring-2 ring-primary/20"
-            />
-          ) : (
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-xl font-bold text-primary-foreground ring-2 ring-primary/20">
-              {data.fullName.charAt(0) || "?"}
-            </div>
-          )}
-          
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              {data.fullName || "Your Name"}
-            </h2>
-            <p className="text-sm text-muted-foreground mt-0.5">{data.title || "Your Title"}</p>
+    <div className="w-[595px] h-[842px] mx-auto bg-white overflow-hidden" style={{ boxSizing: 'border-box' }}>
+      <div className="grid grid-cols-3 gap-0 h-full">
+        <div className="col-span-1 bg-gradient-to-b from-blue-600 to-purple-600 p-4 text-white flex flex-col">
+          <div className="text-center mb-4 flex-shrink-0">
+            {photoUrl ? (
+              <img 
+                src={photoUrl} 
+                alt={data.fullName} 
+                className="w-20 h-20 rounded-full object-cover mx-auto mb-2 border-2 border-white"
+                crossOrigin="anonymous"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center text-xl font-bold mx-auto mb-2 border-2 border-white">
+                {data.fullName.charAt(0) || "?"}
+              </div>
+            )}
+            {visibilitySettings?.fullName !== false && (
+              <h2 className="text-sm font-bold">{data.fullName || "Your Name"}</h2>
+            )}
+            {visibilitySettings?.title !== false && (
+              <p className="text-[10px] opacity-90 mt-1">{data.title || "Your Title"}</p>
+            )}
+          </div>
+
+          <div className="space-y-3 flex-1 overflow-hidden">
+            {data.contactEmail && visibilitySettings?.contactEmail !== false && (
+              <div>
+                <h3 className="text-[10px] font-bold mb-1 opacity-80">EMAIL</h3>
+                <p className="text-[9px] break-all">{data.contactEmail}</p>
+              </div>
+            )}
+
+            {data.contactPhone && visibilitySettings?.contactPhone !== false && (
+              <div>
+                <h3 className="text-[10px] font-bold mb-1 opacity-80">PHONE</h3>
+                <p className="text-[9px]">{data.contactPhone}</p>
+              </div>
+            )}
+
+            {skillsArray.length > 0 && visibilitySettings?.skills !== false && (
+              <div>
+                <h3 className="text-[10px] font-bold mb-1.5 opacity-80">SKILLS</h3>
+                <div className="space-y-1">
+                  {skillsArray.map((skill, idx) => (
+                    <div key={idx} className="text-[9px] flex items-center gap-1">
+                      <div className="w-1 h-1 bg-white rounded-full"></div>
+                      <span>{skill}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {data.bio && (
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-3">
-            <p className="text-xs text-muted-foreground leading-snug">{data.bio}</p>
-          </div>
-        )}
-
-        {skillsArray.length > 0 && (
-          <div className="space-y-1.5">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-primary">Skills</h3>
-            <div className="flex flex-wrap gap-1.5">
-              {skillsArray.map((skill, idx) => (
-                <span
-                  key={idx}
-                  className="px-2 py-1 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-full text-xs font-medium"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {data.education && (
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Education</h3>
-            <p className="text-xs text-muted-foreground leading-snug">{data.education}</p>
-          </div>
-        )}
-
-        {data.projects && (
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Projects</h3>
-            <p className="text-xs text-muted-foreground leading-snug">{data.projects}</p>
-          </div>
-        )}
-
-        {data.achievements && (
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Achievements</h3>
-            <p className="text-xs text-muted-foreground leading-snug">{data.achievements}</p>
-          </div>
-        )}
-
-        {(data.contactEmail || data.contactPhone) && (
-          <div className="flex gap-4 pt-2 border-t">
-            {data.contactEmail && (
-              <a href={`mailto:${data.contactEmail}`} className="text-xs text-primary hover:underline">
-                {data.contactEmail}
-              </a>
+        <div className="col-span-2 p-4 bg-white flex flex-col overflow-hidden">
+          <div className="space-y-2.5 flex-1 overflow-hidden">
+            {data.bio && visibilitySettings?.bio !== false && (
+              <div>
+                <h3 className="text-xs font-bold text-blue-600 mb-1 pb-0.5 border-b border-gray-200">ABOUT</h3>
+                <p className="text-[10px] text-gray-700 leading-tight">{data.bio}</p>
+              </div>
             )}
-            {data.contactPhone && (
-              <span className="text-xs text-muted-foreground">{data.contactPhone}</span>
+
+            {data.education && visibilitySettings?.education !== false && (
+              <div>
+                <h3 className="text-xs font-bold text-blue-600 mb-1 pb-0.5 border-b border-gray-200">EDUCATION</h3>
+                <p className="text-[10px] text-gray-700 leading-tight">{data.education}</p>
+              </div>
+            )}
+
+            {data.projects && visibilitySettings?.projects !== false && (
+              <div>
+                <h3 className="text-xs font-bold text-blue-600 mb-1 pb-0.5 border-b border-gray-200">PROJECTS</h3>
+                <p className="text-[10px] text-gray-700 leading-tight">{data.projects}</p>
+              </div>
+            )}
+
+            {data.achievements && visibilitySettings?.achievements !== false && (
+              <div>
+                <h3 className="text-xs font-bold text-blue-600 mb-1 pb-0.5 border-b border-gray-200">ACHIEVEMENTS</h3>
+                <p className="text-[10px] text-gray-700 leading-tight">{data.achievements}</p>
+              </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
