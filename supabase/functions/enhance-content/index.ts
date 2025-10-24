@@ -97,8 +97,8 @@ serve(async (req) => {
 
     console.log('Enhancing content with AI...');
 
-    const bioPrompt = bio ? `Enhance this professional bio to sound more professional and engaging while keeping it concise (max 150 words): "${bio}"` : null;
-    const projectsPrompt = projects ? `Enhance these project descriptions to sound more professional and highlight key achievements: "${projects}"` : null;
+    const bioPrompt = bio ? `Fix ONLY grammar mistakes and capitalization in the following text. Keep it maximum 5 lines. Do not add new content or elaborate, only correct what exists: "${bio}"` : null;
+    const projectsPrompt = projects ? `Fix ONLY grammar mistakes and capitalization in the following text. Keep it maximum 5 lines. Do not add new content or elaborate, only correct what exists: "${projects}"` : null;
     const titleContext = title ? ` (Professional title: ${title})` : '';
 
     let enhancedBio = bio;
@@ -114,7 +114,7 @@ serve(async (req) => {
         body: JSON.stringify({
           model: 'google/gemini-2.5-flash',
           messages: [
-            { role: 'system', content: `You are a professional resume content writer${titleContext}. Enhance the provided content to be more professional, engaging, and impactful while maintaining authenticity. Keep responses concise.` },
+            { role: 'system', content: `You are a grammar and capitalization corrector. Fix ONLY grammar mistakes and capitalization. Keep output to maximum 5 lines. Do not add new content or elaborate.` },
             { role: 'user', content: bioPrompt }
           ],
         }),
@@ -155,7 +155,7 @@ serve(async (req) => {
         body: JSON.stringify({
           model: 'google/gemini-2.5-flash',
           messages: [
-            { role: 'system', content: 'You are a professional resume content writer. Enhance project descriptions to highlight technical skills, impact, and achievements. Be concise and professional.' },
+            { role: 'system', content: 'You are a grammar and capitalization corrector. Fix ONLY grammar mistakes and capitalization. Keep output to maximum 5 lines. Do not add new content or elaborate.' },
             { role: 'user', content: projectsPrompt }
           ],
         }),
