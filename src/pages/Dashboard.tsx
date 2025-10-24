@@ -303,7 +303,7 @@ const Dashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Your Information</CardTitle>
-                <CardDescription>Fill in your details to create your  resume</CardDescription>
+                <CardDescription>Fill in your details to create your resume</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
