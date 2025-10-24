@@ -54,10 +54,25 @@ This document lists the important files and folders in the repository and a shor
 - `utils.ts` — general helper functions (formatters, small utilities used by pages/components).
 
 ### `src/pages/`
-- `Index.tsx` — main landing page (app entry route).
-- `Auth.tsx` — authentication UI (sign in / sign up flows).
-- `Dashboard.tsx` — protected application dashboard page.
-- `NotFound.tsx` — 404 fallback page.
+- `Index.tsx` — main landing page (app entry route). Contains the resume builder interface with:
+  - Template selection
+  - Form inputs for personal information
+  - Real-time resume preview
+  - Download/export options
+- `Auth.tsx` — authentication UI (sign in / sign up flows). Handles:
+  - Email/password authentication
+  - Social login options
+  - Password reset flow
+  - Account creation
+- `Dashboard.tsx` — protected application dashboard page. Features:
+  - Saved resume list
+  - Resume editing and management
+  - Account settings
+  - Usage statistics
+- `NotFound.tsx` — 404 fallback page with:
+  - Friendly error message
+  - Navigation links back to main pages
+  - Search functionality
 
 ### `src/types/`
 - `tailwindcss.d.ts` — (present in this repo) a lightweight fallback declaration for the `tailwindcss` module so TypeScript doesn't error if types are not resolvable. It can be removed once tooling and node_modules are resolved and you prefer the package types.
